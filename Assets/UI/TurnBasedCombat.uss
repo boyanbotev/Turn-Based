@@ -1,0 +1,152 @@
+:root {
+    --cream-light: rgba(254, 255, 227, 1);
+    --cream-transparent: rgba(254, 255, 227, 0.4);
+    --cream-semi-transparent: rgba(254, 255, 227, 0.8);
+    --cream-dark: rgb(223, 223, 174);
+    --cream-dark-transparent: rgba(223, 223, 174, 0.7);
+    --theme-colour: var(--cream-dark-transparent);
+
+    --font-size: 30px;
+}
+
+.main {
+    /* padding-top: 4%;
+    padding-left: 16%;
+    padding-right: 40%;
+    padding-bottom: 4%; */
+    height: 100%;
+    width: 100%;
+    /* border-radius: 50px; */
+}
+
+.transparent-theme {
+  --theme-colour: var(--cream-dark-transparent);
+}
+
+.beige-theme {
+    --theme-colour: var(--cream-dark);
+}
+
+.light-theme {
+    --theme-colour: var(--cream-light);
+}
+
+.header, .footer {
+    background-color: var(--theme-colour);
+    border-color: var(--theme-colour);
+}
+
+.header {
+    justify-content: center;
+    padding-left: 24px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 20px;
+    /*border-bottom-width: 2px;*/
+}
+
+.body {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--theme-colour);
+}
+
+.footer {
+    height: 20px;
+    flex-direction: row;
+    color:#ffffff;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 24px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    /*border-top-width: 2px;*/
+}
+
+.sections {
+    flex: 1;
+}
+
+.writing-lines {
+    flex: 1;
+    width: 100%;
+    margin: 8px;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.writing-line {
+    border-color: var(--cream-dark);
+    align-items: center;
+    justify-content: flex-end;
+
+    border-radius: 10px;
+    border-width: 2px;
+    padding: 0 4px;
+    margin: 2px;
+    background-color: var(--cream-transparent);
+    height: 70%;
+}
+
+.word {
+    flex-direction: row;
+    font-size: var(--font-size);
+    /* -unity-font-definition: url('project:/Assets/Fonts/Helvetica SDF.asset'); */
+    background-color: var(--cream-light);
+    margin-bottom: 20px;
+}
+
+.selectable-images {
+    flex-direction: row;
+}
+
+.image {
+    width: 100px;
+    height: 100px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-width: 10px;
+    border-color: var(--theme-colour);
+    background-color: var(--theme-colour);
+}
+
+.images {
+    position: absolute;
+    left: -100px;
+    width: 150px;
+    height: 150px;
+}
+
+.draggable-letters {
+    flex: 1;
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.draggable-letter {
+    border-radius: 10px;
+    border-width: 2px;
+    padding: 0 4px;
+    border-color: var(--cream-dark);
+    background-color: var(--cream-light);
+    margin: 2%;
+}
+
+.draggable-letter Label {
+    font-size: var(--font-size);
+    /* -unity-font-definition: url('project:/Assets/Fonts/Helvetica SDF.asset');  */
+    -unity-text-align: middle-center;
+}
+
+.draggable-letter .selected {
+    
+}
+
+.horizontal-line {
+    height: 4px;
+    background-color: black;
+    width: 36px;
+    margin: 4px;
+}
