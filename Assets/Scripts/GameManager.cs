@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using System.Linq;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
@@ -17,11 +16,13 @@ public class DragAndDropData
 public class GameManager : MonoBehaviour
 {
     public static event Action<string> onWordCompleted;
+    public static event Action<int> onHealthChanged;
     [SerializeField] Transform letterParent;
     [SerializeField] Transform writingLineParent;
     [SerializeField] private List<DraggableObject> letters;
     [SerializeField] DragAndDropData[] dragAndDropDatas;
     private int dragAndDropIndex = 0;
+    private int health = 3;
 
     [SerializeField] private GameObject writingLinePrefab;
     [SerializeField] private GameObject letterPrefab;
@@ -133,11 +134,20 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        health--;
         Debug.Log("wrong word: " + word + " not equal to " + currentWord);
+
+        if (health == 0)
+        {
+            RestartScene();
+            return;
+        }
+
         RefreshChallenge();
     }
     private void RefreshChallenge()
     {
+        onHealthChanged?.Invoke(health);
         BuildChallenge();
     }
     private void GoToNextChallenge(string word)
