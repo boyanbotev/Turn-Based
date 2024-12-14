@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<DraggableObject> letters;
     [SerializeField] DragAndDropData[] dragAndDropDatas;
     private int dragAndDropIndex = 0;
-    private int health = 3;
-    private int enemyHealth = 5;
+    private int health = 3; // TODO: move into different class
+    private int enemyHealth = 5; // TODO: move into different class
 
     [SerializeField] private GameObject writingLinePrefab;
     [SerializeField] private GameObject letterPrefab;
@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        float xOffset = 2.5f;
+        float xOffset = 2.5f; // TODO: make customizable
 
         for (int i = 0; i < dragAndDropDatas[dragAndDropIndex].word.Length; i++)
         {

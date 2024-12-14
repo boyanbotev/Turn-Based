@@ -6,7 +6,7 @@ public class InputHandler : MonoBehaviour
 {
     private List<DraggableObject> draggedObjects = new List<DraggableObject>();
 
-    // Update is called once per frame
+    // TODO: redo with new input system
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
