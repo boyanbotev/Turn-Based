@@ -17,12 +17,14 @@ public class GameManager : MonoBehaviour
 {
     public static event Action<string> onWordCompleted;
     public static event Action<int> onHealthChanged;
+    public static event Action<int> onEnemyHealthChanged;
     [SerializeField] Transform letterParent;
     [SerializeField] Transform writingLineParent;
     [SerializeField] private List<DraggableObject> letters;
     [SerializeField] DragAndDropData[] dragAndDropDatas;
     private int dragAndDropIndex = 0;
     private int health = 3;
+    private int enemyHealth = 5;
 
     [SerializeField] private GameObject writingLinePrefab;
     [SerializeField] private GameObject letterPrefab;
@@ -130,6 +132,8 @@ public class GameManager : MonoBehaviour
         }
         if (word == currentWord)
         {
+            enemyHealth--;
+            onEnemyHealthChanged?.Invoke(enemyHealth);
             GoToNextChallenge(word);
             return;
         }
@@ -155,7 +159,7 @@ public class GameManager : MonoBehaviour
         onWordCompleted?.Invoke(word);
         Debug.Log("word completed: " + word);
 
-        if (dragAndDropIndex == dragAndDropDatas.Length - 1)
+        if (dragAndDropIndex == dragAndDropDatas.Length - 1 || enemyHealth == 0)
         {
             GoToNextScene();
             return;

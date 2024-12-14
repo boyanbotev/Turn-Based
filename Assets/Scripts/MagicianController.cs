@@ -23,6 +23,12 @@ public class MagicianController : MonoBehaviour
 
     void Burst(string word)
     {
+        StartCoroutine(BurstRoutine());
+    }
+
+    IEnumerator BurstRoutine()
+    {
+        yield return new WaitForSeconds(0f);
         magicianAnim.Burst();
     }
 }
