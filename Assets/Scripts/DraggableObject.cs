@@ -12,12 +12,15 @@ public class DraggableObject : MonoBehaviour
 {
     public static event Action onPuzzlePieceSnapped;
     public static event Action<string> onSelect;
+
+    [SerializeField] bool isAdjustable = false; // whether can be adjusted after being placed in pos
     [SerializeField] public Transform targets;
     private bool isDragging = false;
     public bool isSnapped = false;
     private float minSnapDistance = 1f;
     public void OnClick() {
-        if (isSnapped) return;
+        if (isSnapped && !isAdjustable) return;
+        isSnapped = false;
         isDragging = true;
 
         var text = GetComponentInChildren<TextMeshPro>();

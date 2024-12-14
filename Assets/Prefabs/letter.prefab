@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4156452d257a7c4ca376c822b36444b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAdjustable: 1
   targets: {fileID: 0}
   isSnapped: 0
 --- !u!61 &5654827110241987537
