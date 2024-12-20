@@ -273,6 +273,7 @@ Transform:
   m_Children:
   - {fileID: 119211594}
   - {fileID: 593362641}
+  - {fileID: 1972657277}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &74939532
@@ -2537,6 +2538,77 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1972657276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1972657277}
+  - component: {fileID: 1972657278}
+  m_Layer: 0
+  m_Name: Audiomanager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1972657277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972657276}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 24828577}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1972657278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972657276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a4f06220416ead4bad69093893faa53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: a
+    audioClip: {fileID: 8300000, guid: a4889045a45abd440ac2e4888e6093e9, type: 3}
+  - name: ant
+    audioClip: {fileID: 8300000, guid: e19d37fbcc6d87545949bd2ef54b929a, type: 3}
+  - name: i
+    audioClip: {fileID: 8300000, guid: af64b6341b04fa24d8e273c30f2ed662, type: 3}
+  - name: n
+    audioClip: {fileID: 8300000, guid: c5e7ec082333be44e91d184a5dc49c6b, type: 3}
+  - name: p
+    audioClip: {fileID: 8300000, guid: d4bd349d997f12143b49aaf4d8cca4f9, type: 3}
+  - name: pan
+    audioClip: {fileID: 8300000, guid: 7ebc4566ab60e2b4d88aa372a1bef0ca, type: 3}
+  - name: pants
+    audioClip: {fileID: 8300000, guid: 01c011032c7908f46803406ff5726c91, type: 3}
+  - name: pin
+    audioClip: {fileID: 8300000, guid: 896e7d109b9e2b145b5ade00301bfc55, type: 3}
+  - name: s
+    audioClip: {fileID: 8300000, guid: e36f38544302fac4baea004c400a328a, type: 3}
+  - name: santa
+    audioClip: {fileID: 8300000, guid: 4cef2d1caa127284e96bb93c9ba7f3a1, type: 3}
+  - name: t
+    audioClip: {fileID: 8300000, guid: 6e79b9ea04843a142b24672358480181, type: 3}
+  - name: tin
+    audioClip: {fileID: 8300000, guid: 6c3878ce526949349b6d026e3ff826fe, type: 3}
+  - name: wrong sound
+    audioClip: {fileID: 8300000, guid: 00e701b385c86c24f8818f683488be96, type: 3}
 --- !u!1001 &2025901123
 PrefabInstance:
   m_ObjectHideFlags: 0
