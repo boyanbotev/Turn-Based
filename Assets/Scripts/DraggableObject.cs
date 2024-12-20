@@ -5,31 +5,24 @@ using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
 
-// TODO: decouple text from draggable object
-// make a separate class for draggable letter that inherits from draggable object
-
 public class DraggableObject : MonoBehaviour
 {
     public static event Action onPuzzlePieceSnapped;
-    public static event Action<string> onSelect;
 
     [SerializeField] bool isAdjustable = false; // whether can be adjusted after being placed in pos
     [SerializeField] public Transform targets;
     private bool isDragging = false;
     public bool isSnapped = false;
     private float minSnapDistance = 1f;
-    public void OnClick() {
+    public virtual void OnClick() {
         if (isSnapped && !isAdjustable) return;
         isSnapped = false;
         isDragging = true;
-
-        var text = GetComponentInChildren<TextMeshPro>();
-        onSelect?.Invoke(text.text);
+  
         GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
-        text.sortingLayerID = SortingLayer.NameToID("Foreground 1");
     }
 
-    public void OnDrag()
+    public virtual void OnDrag()
     {
         if (!isDragging || isSnapped) return;
 
@@ -37,12 +30,10 @@ public class DraggableObject : MonoBehaviour
         transform.position = new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
     }
 
-    public void OnRelease()
+    public virtual void OnRelease()
     {
         isDragging = false;
         GetComponent<SpriteRenderer>().sortingLayerName = "Default";
-        var text = GetComponentInChildren<TextMeshPro>();
-        text.sortingLayerID = SortingLayer.NameToID("Default 1");
 
         for (int i = 0; i < targets.childCount; i++)
         {

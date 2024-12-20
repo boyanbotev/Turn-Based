@@ -11,14 +11,14 @@ public class AudioManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.onWordCompleted += PlaySound;
-        DraggableObject.onSelect += PlaySound;
+        DraggableLetter.onSelect += PlaySound;
         GameManager.onHealthChanged += PlayIncorrectSound;
     }
 
     private void OnDisable()
     {
         GameManager.onWordCompleted -= PlaySound;
-        DraggableObject.onSelect -= PlaySound;
+        DraggableLetter.onSelect -= PlaySound;
         GameManager.onHealthChanged -= PlayIncorrectSound;
     }
 

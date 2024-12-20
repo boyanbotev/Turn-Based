@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public static event Action<int> onEnemyHealthChanged;
     [SerializeField] Transform letterParent;
     [SerializeField] Transform writingLineParent;
-    [SerializeField] private List<DraggableObject> letters;
+    [SerializeField] private List<DraggableLetter> letters;
     [SerializeField] DragAndDropData[] dragAndDropDatas;
     private int dragAndDropIndex = 0;
     private int health = 3; // TODO: move into different class
@@ -32,12 +32,12 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        DraggableObject.onPuzzlePieceSnapped += CheckIfWordComplete;
+        DraggableLetter.onPuzzlePieceSnapped += CheckIfWordComplete;
     }
 
     private void OnDisable()
     {
-        DraggableObject.onPuzzlePieceSnapped -= CheckIfWordComplete;
+        DraggableLetter.onPuzzlePieceSnapped -= CheckIfWordComplete;
     }
 
     private void Awake()
@@ -100,9 +100,9 @@ public class GameManager : MonoBehaviour
             GameObject letter = Instantiate(letterPrefab, letterParent);
             letter.transform.localPosition = new Vector3(i * xOffset - (scrambledWord.Length - 1) * xOffset / 2, 0, 0);
             letter.GetComponentInChildren<TextMeshPro>().text = scrambledWord[i].ToString();
-            DraggableObject draggableObject = letter.GetComponent<DraggableObject>();
-            letters.Add(draggableObject);
-            draggableObject.targets = writingLineParent;
+            DraggableLetter draggableLetter = letter.GetComponent<DraggableLetter>();
+            letters.Add(draggableLetter);
+            draggableLetter.targets = writingLineParent;
         }
     }
 
@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
         string word = "";
         string currentWord = dragAndDropDatas[dragAndDropIndex].word;
 
-        List<DraggableObject> orderedLetters = GetOrderedLetters();
+        List<DraggableLetter> orderedLetters = GetOrderedLetters();
 
         for (int i = 0; i < orderedLetters.Count; i++)
         {
@@ -182,9 +182,9 @@ public class GameManager : MonoBehaviour
 
 
     // Order letters by x position from left to right
-    List<DraggableObject> GetOrderedLetters()
+    List<DraggableLetter> GetOrderedLetters()
     {
-        List<DraggableObject> orderedLetters = new List<DraggableObject>();
+        List<DraggableLetter> orderedLetters = new List<DraggableLetter>();
         for (int i = 0; i < letters.Count; i++)
         {
             orderedLetters.Add(letters[i]);
