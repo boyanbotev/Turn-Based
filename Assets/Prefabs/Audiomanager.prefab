@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7804874202711244989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2451470623450518087}
+  - component: {fileID: 5147827001552585241}
+  m_Layer: 0
+  m_Name: Audiomanager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2451470623450518087
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7804874202711244989}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5147827001552585241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7804874202711244989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a4f06220416ead4bad69093893faa53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: a
+    audioClip: {fileID: 8300000, guid: bf1dbb4ba574814419e84c6d17659d62, type: 3}
+  - name: ant
+    audioClip: {fileID: 8300000, guid: e19d37fbcc6d87545949bd2ef54b929a, type: 3}
+  - name: i
+    audioClip: {fileID: 8300000, guid: dae26f39c60e14d49a31320728ad9ed8, type: 3}
+  - name: n
+    audioClip: {fileID: 8300000, guid: 6bd512aac9dfbf04ea6feba13cd66ea5, type: 3}
+  - name: p
+    audioClip: {fileID: 8300000, guid: 5a2ef74b969e7bb49aed104657ace08c, type: 3}
+  - name: pan
+    audioClip: {fileID: 8300000, guid: 7ebc4566ab60e2b4d88aa372a1bef0ca, type: 3}
+  - name: pants
+    audioClip: {fileID: 8300000, guid: 01c011032c7908f46803406ff5726c91, type: 3}
+  - name: pin
+    audioClip: {fileID: 8300000, guid: 896e7d109b9e2b145b5ade00301bfc55, type: 3}
+  - name: s
+    audioClip: {fileID: 8300000, guid: 34339d5700af9724886bf742f6c12110, type: 3}
+  - name: santa
+    audioClip: {fileID: 8300000, guid: 4cef2d1caa127284e96bb93c9ba7f3a1, type: 3}
+  - name: t
+    audioClip: {fileID: 8300000, guid: 3de9b6741ed764942bb469d1be278053, type: 3}
+  - name: tin
+    audioClip: {fileID: 8300000, guid: 6c3878ce526949349b6d026e3ff826fe, type: 3}
+  - name: wrong sound
+    audioClip: {fileID: 8300000, guid: 00e701b385c86c24f8818f683488be96, type: 3}
