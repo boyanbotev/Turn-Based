@@ -13,13 +13,5 @@ public class DraggableLetter : DraggableObject
         base.OnClick();
         var text = GetComponentInChildren<TextMeshPro>();
         onSelect?.Invoke(text.text);
-        text.sortingLayerID = SortingLayer.NameToID("Foreground 1");
-    }
-
-    public override void OnRelease()
-    {
-        base.OnRelease();
-        var text = GetComponentInChildren<TextMeshPro>();
-        text.sortingLayerID = SortingLayer.NameToID("Default 1");
     }
 }

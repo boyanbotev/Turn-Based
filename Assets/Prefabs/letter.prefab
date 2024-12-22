@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2042101221804702359}
   - component: {fileID: 5654827110241987537}
   - component: {fileID: 6031233311718506754}
+  - component: {fileID: 5017783510660581926}
   m_Layer: 0
   m_Name: letter
   m_TagString: Untagged
@@ -145,8 +146,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAdjustable: 1
+  useMultipleTargets: 1
   targets: {fileID: 0}
   isSnapped: 0
+--- !u!210 &5017783510660581926
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944642733415476332}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &7165118197691218955
 GameObject:
   m_ObjectHideFlags: 0

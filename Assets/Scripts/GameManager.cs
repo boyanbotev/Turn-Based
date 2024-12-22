@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     private int dragAndDropIndex = 0;
     private int health = 3; // TODO: move into different class
     private int enemyHealth = 5; // TODO: move into different class
+    private float globalLetterZIndex = 0;
 
     [SerializeField] private GameObject writingLinePrefab;
     [SerializeField] private GameObject letterPrefab;
@@ -32,12 +33,14 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        DraggableLetter.onPuzzlePieceSnapped += CheckIfWordComplete;
+        DraggableLetter.onSnapped += CheckIfWordComplete;
+        DraggableObject.onSelected += UpdateLetterZIndex;
     }
 
     private void OnDisable()
     {
-        DraggableLetter.onPuzzlePieceSnapped -= CheckIfWordComplete;
+        DraggableLetter.onSnapped -= CheckIfWordComplete;
+        DraggableObject.onSelected -= UpdateLetterZIndex;
     }
 
     private void Awake()
@@ -166,6 +169,7 @@ public class GameManager : MonoBehaviour
         }
 
         dragAndDropIndex++;
+        globalLetterZIndex = 0;
         BuildChallenge();
     }
 
@@ -193,4 +197,9 @@ public class GameManager : MonoBehaviour
         return orderedLetters;
     }
 
+    void UpdateLetterZIndex(DraggableObject obj)
+    {
+        globalLetterZIndex -= 0.1f;
+        obj.UpdateZIndex(globalLetterZIndex);
+    }
 }

@@ -48,11 +48,11 @@ public class InputHandler : MonoBehaviour
         var rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
         if (!rayHit.collider) return;
 
-        var draggableObject = rayHit.collider.GetComponent<DraggableObject>();
-        if (draggableObject)
+        foreach (var draggableObject in draggedObjects)
         {
             draggableObject.OnRelease();
-            draggedObjects.Remove(draggableObject);
         }
+
+        draggedObjects.Clear();
     }
 }

@@ -20,15 +20,18 @@ public class PuzzleManager : MonoBehaviour
     [SerializeField] JigsawData[] jigsawData;
     [SerializeField] private DraggableObject[] puzzlePieces;
     private int currentPuzzleIndex = 0;
+    private float globalPuzzlePieceZIndex = 0;
 
     private void OnEnable()
     {
-        DraggableObject.onPuzzlePieceSnapped += CheckIfPuzzleIsComplete;
+        DraggableObject.onSnapped += CheckIfPuzzleIsComplete;
+        DraggableObject.onSelected += UpdatePuzzlePieceZIndex;
     }
 
     private void OnDisable()
     {
-        DraggableObject.onPuzzlePieceSnapped -= CheckIfPuzzleIsComplete;
+        DraggableObject.onSnapped -= CheckIfPuzzleIsComplete;
+        DraggableObject.onSelected -= UpdatePuzzlePieceZIndex;
     }
 
     private void Start()
@@ -51,7 +54,7 @@ public class PuzzleManager : MonoBehaviour
             positions[i] = randomPosition;
             puzzlePieces[i].transform.position = randomPosition;
 
-            puzzlePieces[i].isSnapped = false;
+            puzzlePieces[i].Reset();
         }
 
         // set tmpro text to letter of the word
@@ -67,6 +70,7 @@ public class PuzzleManager : MonoBehaviour
         image.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
+    /* Check if the spawn position is too close to any other spawn position */
     private bool IsPositionTooClose(Vector2 pos, Vector2[] positions)
     {
         for (int i = 0; i < positions.Length; i++)
@@ -82,6 +86,11 @@ public class PuzzleManager : MonoBehaviour
         return false;
     }
 
+    private void UpdatePuzzlePieceZIndex(DraggableObject obj)
+    {
+        globalPuzzlePieceZIndex -= 0.1f;
+        obj.UpdateZIndex(globalPuzzlePieceZIndex);
+    }
     Vector2 GetRandomPosition()
     {
         return new Vector2(UnityEngine.Random.Range(-puzzlePieceSpawnXBound, puzzlePieceSpawnXBound), puzzlePieceSpawnY);
@@ -116,6 +125,7 @@ public class PuzzleManager : MonoBehaviour
         if (currentPuzzleIndex < jigsawData.Length - 1)
         {
             currentPuzzleIndex++;
+            globalPuzzlePieceZIndex = 0;
             BuildPuzzle();
         }
         else
