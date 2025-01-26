@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -182,8 +183,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Transform child in letterParent)
         {
-            var pos = new Vector3(child.localPosition.x * 0.75f, child.localPosition.y, child.localPosition.z);
-            child.localPosition = pos;
+            StartCoroutine(MoveCloserRoutine(child));
         }
     }
 
@@ -223,8 +223,23 @@ public class GameManager : MonoBehaviour
         Debug.Log("word completed: " + word);
         AnimateWordToCentre();
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
 
         GoToNextChallenge();
+    }
+
+    private IEnumerator MoveCloserRoutine(Transform child)
+    {
+        var pos = new Vector3(child.localPosition.x * 0.75f, child.localPosition.y, child.localPosition.z);
+
+        float elapsedTime = 0f;
+        float moveTime = 0.5f;
+
+        while (elapsedTime < moveTime)
+        {
+            elapsedTime += Time.deltaTime;
+            child.localPosition = Vector3.Lerp(child.localPosition, pos, (elapsedTime / moveTime));
+            yield return null;
+        }
     }
 }

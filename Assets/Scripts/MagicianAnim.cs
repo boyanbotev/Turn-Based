@@ -19,7 +19,7 @@ public class MagicianAnim : MonoBehaviour
 
     public void Burst()
     {
-        orbAnim.SetTrigger("burst");
+        //orbAnim.SetTrigger("burst");
         rayAnim.SetTrigger("burst");
     }
 
