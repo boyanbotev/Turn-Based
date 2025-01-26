@@ -20,7 +20,7 @@ public class HeartUI : MonoBehaviour
         else GameManager.onHealthChanged -= UpdateHealth;
     }
 
-    void UpdateHealth(int health)
+    void UpdateHealth(int health, bool animate)
     {
         foreach (Transform child in transform)
         {
@@ -32,6 +32,7 @@ public class HeartUI : MonoBehaviour
             transform.GetChild(i).gameObject.SetActive(true);
         }
 
+        if (animate == false) return;
 
         foreach (Transform child in transform)
         {

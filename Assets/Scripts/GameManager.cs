@@ -17,13 +17,17 @@ public class DragAndDropData
 public class GameManager : MonoBehaviour
 {
     public static event Action<string> onWordCompleted;
-    public static event Action<int> onHealthChanged;
-    public static event Action<int> onEnemyHealthChanged;
+    public static event Action<int, bool> onHealthChanged;
+    public static event Action<int, bool> onEnemyHealthChanged;
     [SerializeField] Transform letterParent;
     [SerializeField] Transform writingLineParent;
     [SerializeField] private List<DraggableLetter> letters;
     [SerializeField] DragAndDropData[] dragAndDropDatas;
-    [SerializeField] float writingLineXOffset = 2.5f;
+    [SerializeField] float writingLineXOffset = 2.8f;
+    [SerializeField] float closeLetterXOffset = 1.875f;
+    [SerializeField] float beforeEnemyHealthChangeDelay = 0.6f;
+    [SerializeField] float beforeNextChallengeDelay = 2f;
+    [SerializeField] float letterMoveTime = 1f;
     private int dragAndDropIndex = 0;
     private int health = 3; // TODO: move into different class
     private int enemyHealth = 5; // TODO: move into different class
@@ -48,6 +52,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         BuildChallenge();
+    }
+
+    private void Start()
+    {
+        enemyHealth = dragAndDropDatas.Length;
+        onEnemyHealthChanged?.Invoke(enemyHealth, false);
     }
 
     void BuildChallenge()
@@ -138,8 +148,7 @@ public class GameManager : MonoBehaviour
         }
         if (word == currentWord)
         {
-            enemyHealth--;
-            onEnemyHealthChanged?.Invoke(enemyHealth);
+            StartCoroutine(UpdateEnemyHealthRoutine());
             StartCoroutine(CompleteWordRoutine(word));
             return;
         }
@@ -157,7 +166,7 @@ public class GameManager : MonoBehaviour
     }
     private void RefreshChallenge()
     {
-        onHealthChanged?.Invoke(health);
+        onHealthChanged?.Invoke(health, true);
         BuildChallenge();
     }
     private void GoToNextChallenge()
@@ -175,7 +184,6 @@ public class GameManager : MonoBehaviour
 
     private void AnimateWordToCentre()
     {
-        // TODO: animate
         foreach (Transform child in writingLineParent)
         {
             Destroy(child.gameObject);
@@ -183,7 +191,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Transform child in letterParent)
         {
-            StartCoroutine(MoveCloserRoutine(child));
+            StartCoroutine(MoveLettersCloserRoutine(child));
         }
     }
 
@@ -197,7 +205,6 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
 
     // Order letters by x position from left to right
     List<DraggableLetter> GetOrderedLetters()
@@ -217,28 +224,35 @@ public class GameManager : MonoBehaviour
         obj.UpdateZIndex(globalLetterZIndex);
     }
 
+    IEnumerator UpdateEnemyHealthRoutine()
+    {
+        yield return new WaitForSeconds(beforeEnemyHealthChangeDelay);
+        enemyHealth--;
+        onEnemyHealthChanged?.Invoke(enemyHealth, true);
+    }
+
     private IEnumerator CompleteWordRoutine(string word)
     {
         onWordCompleted?.Invoke(word);
         Debug.Log("word completed: " + word);
         AnimateWordToCentre();
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(beforeNextChallengeDelay);
 
         GoToNextChallenge();
     }
 
-    private IEnumerator MoveCloserRoutine(Transform child)
+    private IEnumerator MoveLettersCloserRoutine(Transform child)
     {
-        var pos = new Vector3(child.localPosition.x * 0.75f, child.localPosition.y, child.localPosition.z);
+        var closeLetterMultiplier = closeLetterXOffset / writingLineXOffset;
+        var pos = new Vector3(child.localPosition.x * closeLetterMultiplier, child.localPosition.y, child.localPosition.z);
 
         float elapsedTime = 0f;
-        float moveTime = 0.5f;
 
-        while (elapsedTime < moveTime)
+        while (elapsedTime < letterMoveTime)
         {
             elapsedTime += Time.deltaTime;
-            child.localPosition = Vector3.Lerp(child.localPosition, pos, (elapsedTime / moveTime));
+            child.localPosition = Vector3.Lerp(child.localPosition, pos, (elapsedTime / letterMoveTime));
             yield return null;
         }
     }

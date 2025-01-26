@@ -1260,11 +1260,10 @@ MonoBehaviour:
     image: {fileID: 2800000, guid: a7b3075ccd66756439264aeb842cca93, type: 3}
   - word: pan
     image: {fileID: 2800000, guid: b9b803aedadc03943a4cb6e190972d2b, type: 3}
-  - word: ant
-    image: {fileID: 2800000, guid: 9b808570c3d3a7c4c844ded45520ef1c, type: 3}
   - word: pants
     image: {fileID: 2800000, guid: 703ca025ecd0f3148a130768f4d1225d, type: 3}
-  writingLineXOffset: 2.5
+  writingLineXOffset: 2.6
+  closeLetterXOffset: 1.875
   writingLinePrefab: {fileID: 7552069221443660941, guid: f998e5c3adf50a54790e24a347ae87f3, type: 3}
   letterPrefab: {fileID: 1944642733415476332, guid: 680c1679ee6c2b34db29a3e5cc9a7383, type: 3}
 --- !u!4 &593362641

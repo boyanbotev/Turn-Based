@@ -22,8 +22,9 @@ public class AudioManager : MonoBehaviour
         GameManager.onHealthChanged -= PlayIncorrectSound;
     }
 
-    void PlayIncorrectSound(int health)
+    void PlayIncorrectSound(int health, bool shouldAnimate)
     {
+        if (!shouldAnimate) return;
         PlaySound("wrong sound");
     }
 
