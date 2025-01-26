@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform writingLineParent;
     [SerializeField] private List<DraggableLetter> letters;
     [SerializeField] DragAndDropData[] dragAndDropDatas;
+    [SerializeField] float writingLineXOffset = 2.5f;
     private int dragAndDropIndex = 0;
     private int health = 3; // TODO: move into different class
     private int enemyHealth = 5; // TODO: move into different class
@@ -50,13 +51,16 @@ public class GameManager : MonoBehaviour
 
     void BuildChallenge()
     {
-        // Add letters as appropriate in appropriate positions
         BuildLetters();
-
         BuildWritingLines();
+        BuildImage();
+    }
 
-
-        // set image to the image of the word
+    /// <summary>
+    /// set image to the image of the word
+    /// </summary>
+    private void BuildImage()
+    {
         var image = GameObject.Find("image");
         var data = dragAndDropDatas[dragAndDropIndex];
         var sprite = Sprite.Create(data.image, new Rect(0, 0, data.image.width, data.image.height), new Vector2(0.5f, 0.5f));
@@ -71,37 +75,35 @@ public class GameManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        float xOffset = 2.5f; // TODO: make customizable
 
         for (int i = 0; i < dragAndDropDatas[dragAndDropIndex].word.Length; i++)
         {
             GameObject writingLine = Instantiate(writingLinePrefab, writingLineParent);
 
             // Add a gap between each writing line so the middle one is at 0
-            var offset = i * xOffset - (dragAndDropDatas[dragAndDropIndex].word.Length - 1) * xOffset / 2;
+            var offset = i * writingLineXOffset - (dragAndDropDatas[dragAndDropIndex].word.Length - 1) * writingLineXOffset / 2;
             writingLine.transform.localPosition = new Vector3(offset, 0, 0);
         }
     }
 
+    /// <summary>
+    /// Add letters as appropriate in appropriate positions
+    /// </summary>
     private void BuildLetters()
     {
-        // Remove letters
         letters.Clear();
-
         foreach (Transform child in letterParent)
         {
             Destroy(child.gameObject);
         }
+
         // Add letters for ammount of letters in word
-
-        float xOffset = 2.5f;
-
         string scrambledWord = ScrambleWord(dragAndDropDatas[dragAndDropIndex].word);
 
         for (int i = 0; i < scrambledWord.Length; i++)
         {
             GameObject letter = Instantiate(letterPrefab, letterParent);
-            letter.transform.localPosition = new Vector3(i * xOffset - (scrambledWord.Length - 1) * xOffset / 2, 0, 0);
+            letter.transform.localPosition = new Vector3(i * writingLineXOffset - (scrambledWord.Length - 1) * writingLineXOffset / 2, 0, 0);
             letter.GetComponentInChildren<TextMeshPro>().text = scrambledWord[i].ToString();
             DraggableLetter draggableLetter = letter.GetComponent<DraggableLetter>();
             letters.Add(draggableLetter);
@@ -137,7 +139,7 @@ public class GameManager : MonoBehaviour
         {
             enemyHealth--;
             onEnemyHealthChanged?.Invoke(enemyHealth);
-            GoToNextChallenge(word);
+            StartCoroutine(CompleteWordRoutine(word));
             return;
         }
 
@@ -157,11 +159,8 @@ public class GameManager : MonoBehaviour
         onHealthChanged?.Invoke(health);
         BuildChallenge();
     }
-    private void GoToNextChallenge(string word)
+    private void GoToNextChallenge()
     {
-        onWordCompleted?.Invoke(word);
-        Debug.Log("word completed: " + word);
-
         if (dragAndDropIndex == dragAndDropDatas.Length - 1 || enemyHealth == 0)
         {
             GoToNextScene();
@@ -171,6 +170,21 @@ public class GameManager : MonoBehaviour
         dragAndDropIndex++;
         globalLetterZIndex = 0;
         BuildChallenge();
+    }
+
+    private void AnimateWordToCentre()
+    {
+        // TODO: animate
+        foreach (Transform child in writingLineParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (Transform child in letterParent)
+        {
+            var pos = new Vector3(child.localPosition.x * 0.75f, child.localPosition.y, child.localPosition.z);
+            child.localPosition = pos;
+        }
     }
 
     private static void GoToNextScene()
@@ -201,5 +215,16 @@ public class GameManager : MonoBehaviour
     {
         globalLetterZIndex -= 0.1f;
         obj.UpdateZIndex(globalLetterZIndex);
+    }
+
+    private IEnumerator CompleteWordRoutine(string word)
+    {
+        onWordCompleted?.Invoke(word);
+        Debug.Log("word completed: " + word);
+        AnimateWordToCentre();
+
+        yield return new WaitForSeconds(1);
+
+        GoToNextChallenge();
     }
 }

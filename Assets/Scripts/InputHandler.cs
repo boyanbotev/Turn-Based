@@ -45,9 +45,6 @@ public class InputHandler : MonoBehaviour
 
     void HandleMouseUp()
     {
-        var rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
-        if (!rayHit.collider) return;
-
         foreach (var draggableObject in draggedObjects)
         {
             draggableObject.OnRelease();

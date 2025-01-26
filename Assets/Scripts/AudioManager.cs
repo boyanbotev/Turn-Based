@@ -28,7 +28,7 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    private void PlaySound(string sound)
+    private void PlaySound(string soundName)
     {
         if (oneShotAudioSource == null)
         {
@@ -36,7 +36,7 @@ public class AudioManager : MonoBehaviour
             oneShotAudioSource = oneShotGameObject.AddComponent<AudioSource>();
         }
 
-        oneShotAudioSource.PlayOneShot(GetAudioClip(sound));
+        oneShotAudioSource.PlayOneShot(GetAudioClip(soundName));
     }
 
     private AudioClip GetAudioClip(string sound)
